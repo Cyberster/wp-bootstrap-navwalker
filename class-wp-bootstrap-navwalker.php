@@ -184,9 +184,15 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			$atts['target'] = ! empty( $item->target ) ? $item->target : '';
 			$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
 			// If the item has children, add atts to the <a>.
-			if ( isset( $args->has_children ) && $args->has_children && 0 === $depth && $args->depth > 1 ) {
-				$atts['href']          = '#';
-				$atts['data-toggle']   = 'dropdown';
+			//if ( isset( $args->has_children ) && $args->has_children && 0 === $depth && $args->depth > 1 ) {
+			if ( isset( $args->has_children ) && $args->has_children && $args->depth > 1 ) {
+			    if (wp_is_mobile()) {
+			        $atts['href']         = '#';
+				    $atts['data-toggle']   = 'dropdown';
+			    } else {
+			        $atts['href']         = !empty( $item->url ) ? $item->url : '';;
+				    $atts['data-hover']   = 'dropdown';
+			    }
 				$atts['aria-haspopup'] = 'true';
 				$atts['aria-expanded'] = 'false';
 				$atts['class']         = 'dropdown-toggle nav-link';
