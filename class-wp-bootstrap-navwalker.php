@@ -279,6 +279,20 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			// Put the item contents into $output.
 			$item_output .= isset( $args->link_before ) ? $args->link_before . $icon_html . $title . $args->link_after : '';
 
+
+            // Add charet to menu items who has a sub menu
+            if($args->has_children) {
+                $caret_icon = '';
+                if ($depth == 0) { // For level 1
+                    $caret_icon = '<i class="fas fa-caret-down ml-2" aria-hidden="true"></i>';
+                } else { // For other levels
+                    $caret_icon = '<i class="fas fa-caret-right ml-2" aria-hidden="true"></i>';
+                }
+                
+                /* Add span add in this nav menu - custom* */
+                $item_output .= '<span class="nav-desc" id="nav-desc-show">' . $caret_icon . '</span>';
+            }
+
 			/*
 			 * This is the end of the internal nav item. We need to close the
 			 * correct element depending on the type of link or link mod.
